@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchLandingViewController" customModule="MercadoLibre" customModuleProvider="target">
+            <connections>
+                <outlet property="searchTextField" destination="ppx-Dj-dIt" id="gHj-lk-nnX"/>
+                <outlet property="view" destination="iN0-l3-epB" id="oZK-El-p1G"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="8R0-2d-pfg">
+                    <rect key="frame" x="41.5" y="425.5" width="331" height="45"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Busca aqui" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ppx-Dj-dIt">
+                            <rect key="frame" x="0.0" y="0.0" width="230" height="45"/>
+                            <attributedString key="attributedText"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvS-b8-mQV">
+                            <rect key="frame" x="234" y="0.0" width="97" height="45"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" image="magnifyingglass.circle" catalog="system"/>
+                            <connections>
+                                <action selector="onSearchButtonClicked:" destination="-1" eventType="touchUpInside" id="r8L-XG-PFh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="ppx-Dj-dIt" firstAttribute="height" secondItem="8R0-2d-pfg" secondAttribute="height" id="T7I-Xe-Uvp"/>
+                        <constraint firstItem="bvS-b8-mQV" firstAttribute="height" secondItem="ppx-Dj-dIt" secondAttribute="height" id="h1L-MO-dRI"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemYellowColor"/>
+            <constraints>
+                <constraint firstItem="8R0-2d-pfg" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.05" id="2Ob-i4-dz8"/>
+                <constraint firstItem="8R0-2d-pfg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DPB-qr-wq3"/>
+                <constraint firstItem="8R0-2d-pfg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="HHa-aB-Ks2"/>
+                <constraint firstItem="8R0-2d-pfg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="jdA-yh-y1e"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="126"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="magnifyingglass.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
