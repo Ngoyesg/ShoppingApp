@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B98A6D9228B5AC3900E698F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */; };
 		B98A6D9428B5AC3900E698F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */; };
-		B98A6D9628B5AC3900E698F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9528B5AC3900E698F0 /* ViewController.swift */; };
 		B98A6D9B28B5AC3B00E698F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */; };
 		B98A6D9E28B5AC3B00E698F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B98A6D9C28B5AC3B00E698F0 /* LaunchScreen.storyboard */; };
 		B98A6DA828B5B2FB00E698F0 /* ListResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = B98A6DA728B5B2FB00E698F0 /* ListResults.xib */; };
@@ -25,13 +24,13 @@
 		B98A6DC228B5BB8300E698F0 /* ListProductsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6DC128B5BB8300E698F0 /* ListProductsAPIResponse.swift */; };
 		B98A6DC428B5BB8E00E698F0 /* ListProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6DC328B5BB8D00E698F0 /* ListProductsService.swift */; };
 		B98A6DC728B5BFB300E698F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B98A6DC628B5BFB300E698F0 /* Main.storyboard */; };
+		B9BD0BFC28B5CEA00097C8CE /* SearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BD0BFB28B5CEA00097C8CE /* SearchUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B98A6D8E28B5AC3900E698F0 /* MercadoLibre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MercadoLibre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B98A6D9528B5AC3900E698F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B98A6D9D28B5AC3B00E698F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B98A6D9F28B5AC3B00E698F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		B98A6DC128B5BB8300E698F0 /* ListProductsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsAPIResponse.swift; sourceTree = "<group>"; };
 		B98A6DC328B5BB8D00E698F0 /* ListProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsService.swift; sourceTree = "<group>"; };
 		B98A6DC628B5BFB300E698F0 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B9BD0BFB28B5CEA00097C8CE /* SearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +64,8 @@
 		B98A6D8528B5AC3900E698F0 = {
 			isa = PBXGroup;
 			children = (
+				B98A6DB428B5B4C700E698F0 /* SearchLanding.xib */,
+				B98A6DA728B5B2FB00E698F0 /* ListResults.xib */,
 				B98A6D9028B5AC3900E698F0 /* MercadoLibre */,
 				B98A6D8F28B5AC3900E698F0 /* Products */,
 			);
@@ -85,7 +87,6 @@
 				B98A6DAD28B5B33700E698F0 /* DetailedItem */,
 				B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */,
 				B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */,
-				B98A6D9528B5AC3900E698F0 /* ViewController.swift */,
 				B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */,
 				B98A6DC628B5BFB300E698F0 /* Main.storyboard */,
 				B98A6D9C28B5AC3B00E698F0 /* LaunchScreen.storyboard */,
@@ -97,6 +98,7 @@
 		B98A6DAB28B5B30D00E698F0 /* Landing */ = {
 			isa = PBXGroup;
 			children = (
+				B9BD0BFA28B5CE8B0097C8CE /* Domain */,
 				B98A6DC528B5BB9D00E698F0 /* Presentation */,
 			);
 			path = Landing;
@@ -126,7 +128,6 @@
 				B98A6DB628B5BB1300E698F0 /* ListResultsViewController.swift */,
 				B98A6DB828B5BB2100E698F0 /* ListResultsPresenter.swift */,
 				B98A6DBA28B5BB2D00E698F0 /* ListResultsPresenterBuilder.swift */,
-				B98A6DA728B5B2FB00E698F0 /* ListResults.xib */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -154,9 +155,16 @@
 				B98A6DAE28B5B40400E698F0 /* SearchLandingViewController.swift */,
 				B98A6DB028B5B41200E698F0 /* SearchLandingPresenter.swift */,
 				B98A6DB228B5B42700E698F0 /* SearchLandingPresenterBuilder.swift */,
-				B98A6DB428B5B4C700E698F0 /* SearchLanding.xib */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		B9BD0BFA28B5CE8B0097C8CE /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				B9BD0BFB28B5CEA00097C8CE /* SearchUseCase.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,11 +242,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98A6DB328B5B42700E698F0 /* SearchLandingPresenterBuilder.swift in Sources */,
-				B98A6D9628B5AC3900E698F0 /* ViewController.swift in Sources */,
 				B98A6D9228B5AC3900E698F0 /* AppDelegate.swift in Sources */,
 				B98A6DB928B5BB2100E698F0 /* ListResultsPresenter.swift in Sources */,
 				B98A6DB728B5BB1300E698F0 /* ListResultsViewController.swift in Sources */,
 				B98A6DBF28B5BB4F00E698F0 /* SearchUseCase.swift in Sources */,
+				B9BD0BFC28B5CEA00097C8CE /* SearchUseCase.swift in Sources */,
 				B98A6DAF28B5B40400E698F0 /* SearchLandingViewController.swift in Sources */,
 				B98A6D9428B5AC3900E698F0 /* SceneDelegate.swift in Sources */,
 				B98A6DBB28B5BB2D00E698F0 /* ListResultsPresenterBuilder.swift in Sources */,

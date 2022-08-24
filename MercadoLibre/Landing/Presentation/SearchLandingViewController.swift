@@ -10,6 +10,7 @@ import UIKit
 protocol SearchLandingViewControllerProtocol: AnyObject {
     func navigateToListResultsScreen()
     func alertSearchWasEmpty()
+    func setItemToSearch(as item: String)
 }
 
 class SearchLandingViewController: UIViewController {
@@ -22,18 +23,20 @@ class SearchLandingViewController: UIViewController {
         static let alertInitializationFailedTitle = "Error"
         static let alertInitializationFailedTitleMessage = "Fallo al cargar vista"
         static let okAction = "OK"
+        static let segueToListResults = "toListResults"
     }
     
     var presenter: SearchLandingPresenterProtocol?
+    var itemToSearch: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-           // self.presenter = try SearchLandingPresenterBuilder().build()
-            // self.presenter?.setViewController(self)
-        } catch {
+        self.presenter = SearchLandingPresenterBuilder().build()
+        guard let presenter = presenter else {
             alertInitializationFailed()
+            return
         }
+        presenter.setViewController(self)
     }
     
     func alertInitializationFailed(){
@@ -44,15 +47,23 @@ class SearchLandingViewController: UIViewController {
     }
     
     @IBAction func onSearchButtonClicked(_ sender: Any) {
-    //process clicked
+        self.presenter?.processSearchClicked(for: searchTextField.text)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ListResultsViewController {
+            if let itemToSearch = itemToSearch {
+                destination.setItemToSearch(with: itemToSearch)
+            }
+        }
+    }
+    
 }
 
 extension SearchLandingViewController: SearchLandingViewControllerProtocol {
- 
+    
     func navigateToListResultsScreen() {
-        let secondView = ListResultsViewController(nibName: "ListResults", bundle: nil)
-        self.navigationController!.pushViewController(secondView, animated: true)
+        self.performSegue(withIdentifier: Constant.segueToListResults, sender: self)
     }
     
     func alertSearchWasEmpty(){
@@ -62,4 +73,7 @@ extension SearchLandingViewController: SearchLandingViewControllerProtocol {
         self.present(alert, animated: true)
     }
     
+    func setItemToSearch(as item: String) {
+        self.itemToSearch = item
+    }
 }

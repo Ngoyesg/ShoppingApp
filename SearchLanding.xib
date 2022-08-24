@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchLandingViewController" customModule="MercadoLibre" customModuleProvider="target">
             <connections>
-                <outlet property="searchTextField" destination="ppx-Dj-dIt" id="gHj-lk-nnX"/>
                 <outlet property="view" destination="iN0-l3-epB" id="oZK-El-p1G"/>
             </connections>
         </placeholder>
@@ -31,9 +30,6 @@
                             <rect key="frame" x="234" y="0.0" width="97" height="45"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="filled" image="magnifyingglass.circle" catalog="system"/>
-                            <connections>
-                                <action selector="onSearchButtonClicked:" destination="-1" eventType="touchUpInside" id="r8L-XG-PFh"/>
-                            </connections>
                         </button>
                     </subviews>
                     <constraints>

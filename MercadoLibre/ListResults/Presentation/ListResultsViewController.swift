@@ -8,6 +8,7 @@
 import UIKit
 
 protocol ListResultsViewControllerProtocol: AnyObject {
+    func setItemToSearch(with item: String)
     func navigateToDetailedResultScreen()
     func alertSearchFailed()
     func alertNoResults()
@@ -15,7 +16,6 @@ protocol ListResultsViewControllerProtocol: AnyObject {
 
 class ListResultsViewController: UITableViewController {
     
-    @IBOutlet weak var searchTextField: UITextField!
     
     struct Constant {
         static let alertSearchFailedTitle = "Busqueda Fallo"
@@ -27,16 +27,18 @@ class ListResultsViewController: UITableViewController {
         static let okAction = "OK"
     }
     
+    var itemToSearch: String?
     var presenter: SearchLandingPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-           // self.presenter = try SearchLandingPresenterBuilder().build()
-            // self.presenter?.setViewController(self)
-        } catch {
-            alertInitializationFailed()
-        }
+        
+//        do {
+//           // self.presenter = try SearchLandingPresenterBuilder().build()
+//            // self.presenter?.setViewController(self)
+//        } catch {
+//            alertInitializationFailed()
+//        }
     }
     
     func alertInitializationFailed(){
@@ -49,6 +51,10 @@ class ListResultsViewController: UITableViewController {
 
 extension ListResultsViewController: ListResultsViewControllerProtocol {
  
+    func setItemToSearch(with item: String) {
+//        presenter?.processSearchClicked(for: item)
+    }
+    
     func navigateToDetailedResultScreen() {
       //  let thirdView = ArtistLookUpViewController(nibName: "ArtistLookUp", bundle: nil)
       //  self.navigationController!.pushViewController(thirdView, animated: true)
