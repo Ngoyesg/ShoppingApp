@@ -47,6 +47,7 @@ class SearchLandingViewController: UIViewController {
     }
     
     @IBAction func onSearchButtonClicked(_ sender: Any) {
+        searchTextField.text = "Motorola 20G6"
         self.presenter?.processSearchClicked(for: searchTextField.text)
     }
     
@@ -57,7 +58,6 @@ class SearchLandingViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension SearchLandingViewController: SearchLandingViewControllerProtocol {
