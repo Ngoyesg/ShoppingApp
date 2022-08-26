@@ -8,13 +8,13 @@
 import Foundation
 
 protocol SearchItemUseCaseProtocol: AnyObject {
-    func execute(search item: String, onSuccess: @escaping (ListProductsAPIResponse)-> (Void), onError: @escaping (WebServiceError)->(Void))
-    func getThumbnail(search thumbnail: String, onSuccess: @escaping (Data)-> (Void), onError: @escaping (WebServiceError)->(Void))
+    func execute(search item: String, onSuccess: @escaping ([ProductsToDisplay])-> (Void), onError: @escaping (WebServiceError)->(Void))
 }
 
 class SearchItemUseCase {
     
     var thumbnailsData : [Data?] = []
+    var productsToReturn: [ProductsToDisplay] = []
     
     let listProductsService: ListProductsServiceProtocol
     let getThumbnailsService: GetThumbnailsDataServiceProtocol
@@ -24,33 +24,6 @@ class SearchItemUseCase {
         self.getThumbnailsService = getThumbnailsService
     }
     
-    func mapProductsResults(from list: ListProductsAPIResponse, with thumbnails: [Data?]) -> [ProductsToDisplay] {
-        var products: [ProductsToDisplay] = []
-        for each in 0..<list.results.count {
-            let element = list.results[each]
-            let newProductInfo = ProductsToDisplay(id: element.id, title: element.title, prices: element.price[0], currency: element.characteristics.currency, thumbnail: thumbnails[each])
-            products.append(newProductInfo)
-        }
-        return products
-    }
-    
-}
-
-extension SearchItemUseCase: SearchItemUseCaseProtocol {
-    func execute(search item: String, onSuccess: @escaping (ListProductsAPIResponse)-> (Void), onError: @escaping (WebServiceError)->(Void)){
-        
-        listProductsService.getProductsInformation(item: item) { [weak self] listProductsInformation in
-            guard let self = self else {
-                return
-            }
-            onSuccess(listProductsInformation)
-        } onError: {  [weak self] webRequestError in
-            guard let self = self else {
-                return
-            }
-            onError(.searchFailed)
-        }
-    }
     
     func getThumbnail(search thumbnail: String, onSuccess: @escaping (Data)-> (Void), onError: @escaping (WebServiceError)->(Void)){
         
@@ -66,5 +39,53 @@ extension SearchItemUseCase: SearchItemUseCaseProtocol {
             onError(.searchFailed)
         }
     }
+    
+    func mapProductsResults(from item: ItemResults, and thumbnail: Data) -> ProductsToDisplay {
+        return ProductsToDisplay(id: item.id, title: item.title, prices: item.price, currency: item.currency ?? "NaN", thumbnail: thumbnail, quantityOfInstallments: item.installments.quantity, installments: item.installments.amount ?? 0, availableQuantity: item.availableQuantity, soldQuantity: item.soldQuantity )
+    }
+    
+    func processResults(from list: ListProductsAPIResponse, onSuccess: @escaping ()-> (Void), onError: @escaping (WebServiceError)-> (Void)) {
+        list.results.forEach { itemFound in
+            self.getThumbnail(search: itemFound.thumbnail) {  [weak self]  dataForImage in
+                guard let self = self else {
+                    return
+                }
+                let newProductInfo = self.mapProductsResults(from: itemFound, and: dataForImage)
+                self.productsToReturn.append(newProductInfo)
+                onSuccess()
+            } onError: { [weak self]  webRequestError in
+                guard let self = self else {
+                    return
+                }
+                onError(.searchFailed)
+            }
+        }
+    }
+                    
+}
+
+extension SearchItemUseCase: SearchItemUseCaseProtocol {
+    
+    func execute(search item: String, onSuccess: @escaping ([ProductsToDisplay])-> (Void), onError: @escaping (WebServiceError)->(Void)){
+        
+        listProductsService.getProductsInformation(item: item) { [weak self] listProductsInformation in
+            guard let self = self else {
+                return
+            }
+            self.processResults(from: listProductsInformation) {
+                onSuccess(self.productsToReturn)
+            } onError: { _ in
+                onError(.searchFailed)
+            }
+
+        } onError: {  [weak self] webRequestError in
+            guard let self = self else {
+                return
+            }
+            onError(.searchFailed)
+        }
+    }
+    
+ 
     
 }

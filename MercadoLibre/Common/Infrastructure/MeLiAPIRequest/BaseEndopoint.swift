@@ -9,8 +9,9 @@ import Foundation
 
 class BaseEndpoint {
     
-    let host: String = "https"
-    let path: String = "api.mercadolibre.com"
+    let scheme: String = "https"
+    let host: String = "api.mercadolibre.com"
+    let path: String
     let queryItems: [URLQueryItem]
     let httpMethod: HTTPMethod
     
@@ -23,6 +24,7 @@ class BaseEndpoint {
     func getURL() -> URL? {
         
         var components = URLComponents()
+        components.scheme = self.scheme
         components.host = self.host
         components.path = self.path
         components.queryItems = self.queryItems

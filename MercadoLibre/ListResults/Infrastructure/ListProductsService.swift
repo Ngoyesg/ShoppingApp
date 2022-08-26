@@ -76,7 +76,7 @@ extension ListProductsService: ListProductsServiceProtocol {
     func getProductsInformation(item: String, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
         
         do {
-            let endpoint = ItemSearch(location: "MCO", search: item)
+            let endpoint = ItemSearch(location: "MLB", search: item)
             self.urlRequestBuilder.setEndpoint(endpoint: endpoint)
             let request = try urlRequestBuilder.build()
             performRequest(request: request, onSuccess: onSuccess, onError: onError)

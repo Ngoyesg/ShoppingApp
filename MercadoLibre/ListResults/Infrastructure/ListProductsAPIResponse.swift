@@ -14,20 +14,20 @@ struct ListProductsAPIResponse: Codable {
 struct ItemResults: Codable {
     let id: String
     let title: String
-    let price: [Int]
-    let characteristics: AdvertInfo
+    let price: Double
+    let currency: String?
+    let thumbnail: String
+    let availableQuantity: Int?
+    let soldQuantity: Int?
+    let installments: InstallmentInfo
     
     private enum CodingKeys: String, CodingKey {
-        case price = "seller", characteristics = "prices", id, title
+        case id, title, price, installments, currency = "currency_id", thumbnail, availableQuantity = "available_quantity", soldQuantity = "sold_quantity"
     }
 }
 
-struct AdvertInfo: Codable {
-    let currency: String
-    let thumbnail: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case currency = "currency_id", thumbnail
-    }
+struct InstallmentInfo: Codable {
+    let amount: Double?
+    let quantity: Int?
 }
 

@@ -19,16 +19,6 @@ class URLRequestBuilder {
     }
     
     var endpoint: BaseEndpoint?
-    
-    func setHTTPMethod(to urlRequest: inout URLRequest, with method: HTTPMethod) {
-        urlRequest.httpMethod = method.rawValue
-    }
-    
-//    func addHTTPHeaders(to urlRequest: inout URLRequest) {
-//        urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//    }
-        
 }
 
 extension URLRequestBuilder: URLRequestBuilderProtocol {
@@ -46,7 +36,6 @@ extension URLRequestBuilder: URLRequestBuilderProtocol {
         guard let url = endpoint.getURL() else {
             throw Error.noURL
         }
-        
         return URLRequest(url: url)
     }
 }

@@ -10,7 +10,11 @@ import UIKit
 struct ProductsToDisplay{
     let id: String
     let title: String
-    let prices: Int
+    let prices: Double
     let currency: String
     let thumbnail: Data?
+    let quantityOfInstallments: Int?
+    let installments: Double?
+    let availableQuantity: Int?
+    let soldQuantity: Int?
 }

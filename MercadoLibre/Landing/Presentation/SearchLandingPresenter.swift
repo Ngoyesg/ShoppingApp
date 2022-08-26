@@ -44,7 +44,6 @@ extension SearchLandingPresenter: SearchLandingPresenterProtocol {
             guard let self = self, let viewController = self.viewController else {
                 return
             }
-            print(errorThrown.localizedDescription)
             viewController.alertSearchWasEmpty()
         }
     }

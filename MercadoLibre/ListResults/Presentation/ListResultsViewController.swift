@@ -9,7 +9,7 @@ import UIKit
 
 protocol ListResultsViewControllerProtocol: AnyObject {
     func setItemToSearch(with item: String)
-    func navigateToDetailedResultScreen()
+    func navigateToDetailedResultScreen(with productInfo: ProductsToDisplay)
     func alertDownloadingFailed()
     func alertNoResults()
     func showTable()
@@ -40,6 +40,7 @@ class ListResultsViewController: UIViewController {
     var productToSend: ProductsToDisplay?
     var presenter: ListResultsPresenterProtocol?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewListResults.delegate = self
@@ -48,10 +49,13 @@ class ListResultsViewController: UIViewController {
         do {
             self.presenter = try ListResultsPresenterBuilder().build()
             self.presenter?.setViewController(self)
-            self.presenter?.sendRequest(for: itemToSearch)
         } catch {
             alertInitializationFailed()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.presenter?.sendRequest(for: itemToSearch)
     }
     
     func setItemToSearch(with item: String) {
@@ -60,26 +64,25 @@ class ListResultsViewController: UIViewController {
     
     func alertInitializationFailed(){
         let alert = UIAlertController(title: Constant.alertInitializationFailedTitle, message: Constant.alertInitializationFailedTitleMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in fatalError()})
+        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? DetailedItemViewControllerProtocol {
+        if let destination = segue.destination as? DetailedItemViewController {
             if let productToSend = productToSend {
-                destination.setItemToSearch(with: productToSend)
+                destination.setItemToDisplay(with: productToSend)
             }
         }
     }
-    
 }
 
 extension ListResultsViewController: ListResultsViewControllerProtocol {
  
-    func navigateToDetailedResultScreen() {
-      //  let thirdView = ArtistLookUpViewController(nibName: "ArtistLookUp", bundle: nil)
-      //  self.navigationController!.pushViewController(thirdView, animated: true)
+    func navigateToDetailedResultScreen(with productInfo: ProductsToDisplay) {
+        self.productToSend = productInfo
+        self.performSegue(withIdentifier: Constant.segueToDetailedProduct, sender: self)
     }
     
     func showTable(){
@@ -101,7 +104,7 @@ extension ListResultsViewController: ListResultsViewControllerProtocol {
         alert.addAction(okAction)
         self.present(alert, animated: true)
     }
-    
+  
     func alertNoResults(){
         let alert = UIAlertController(title: Constant.alertNoResultsTitle, message: Constant.alertNoResultsTitleMessage, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in fatalError()})
@@ -120,11 +123,17 @@ extension ListResultsViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = tableViewListResults.dequeueReusableCell(withIdentifier: Constant.cellIndentifier, for: indexPath)
         let cellInfo = presenter?.getItem(for: indexPath.row)
         let itemThumbnail = presenter?.getThumbnail(for: indexPath.row)
-        if let thumbnail = itemThumbnail {
-            cell.imageView?.image = UIImage(data: thumbnail)
-        } else {
-            cell.imageView?.image = #imageLiteral(resourceName: "errorImage")
+    
+        cell.textLabel?.text = cellInfo?.title
+        
+        if let price = cellInfo?.prices, let installments = cellInfo?.installments, let quantity = cellInfo?.quantityOfInstallments {
+            cell.detailTextLabel?.text = "$\(price) ó $\(installments) por \(quantity) meses"
         }
+        
+        if let thumbnailData = itemThumbnail {
+            cell.imageView?.image = UIImage(data: thumbnailData) ?? #imageLiteral(resourceName: "errorImage")
+        }
+        
         return cell
     }
     

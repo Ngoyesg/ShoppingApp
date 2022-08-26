@@ -9,7 +9,7 @@ import Foundation
 
 class ListResultsPresenterBuilder {
     
-    func build() -> ListResultsPresenter {
+    func build() -> ListResultsPresenterProtocol {
         
         let restClient = RESTClient()
         let urlRequestBuilder = URLRequestBuilder()
