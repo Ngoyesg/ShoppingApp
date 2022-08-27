@@ -8,20 +8,30 @@
 import UIKit
 
 protocol SearchLandingViewControllerProtocol: AnyObject {
+    func enableSearchButton()
+    func disableSearchButton()
     func navigateToListResultsScreen()
     func alertSearchWasEmpty()
     func setItemToSearch(as item: String)
+    func alertCountryIsEmpty()
+    func reloadPicker()
 }
 
 class SearchLandingViewController: UIViewController {
     
     @IBOutlet weak var searchTextField: UITextField!
     
+    @IBOutlet weak var searchButton: UIButton!
+    
+    @IBOutlet weak var countryPicker: UIPickerView!
+    
     struct Constant {
         static let alertSearchIsEmptyTitle = "Busqueda Vacia"
         static let alertSearchIsEmptyTitleMessage = "Por favor intente nuevamente"
         static let alertInitializationFailedTitle = "Error"
         static let alertInitializationFailedTitleMessage = "Fallo al cargar vista"
+        static let alertCountryUnselectedTitle = "Error"
+        static let alertCountryUnselectedTitleMessage = "Por favor seleccione un pais"
         static let okAction = "OK"
         static let segueToListResults = "toListResults"
     }
@@ -31,12 +41,27 @@ class SearchLandingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter = SearchLandingPresenterBuilder().build()
-        guard let presenter = presenter else {
+    
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        countryPicker.dataSource = self
+        countryPicker.delegate = self
+        
+        do {
+            self.presenter = try SearchLandingPresenterBuilder().build()
+            self.presenter?.setViewController(self)
+        } catch {
             alertInitializationFailed()
-            return
         }
-        presenter.setViewController(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.presenter?.verifyCountrySelection()
+    }
+    
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func alertInitializationFailed(){
@@ -47,7 +72,6 @@ class SearchLandingViewController: UIViewController {
     }
     
     @IBAction func onSearchButtonClicked(_ sender: Any) {
-        searchTextField.text = "Motorola 20G6"
         self.presenter?.processSearchClicked(for: searchTextField.text)
     }
     
@@ -58,6 +82,7 @@ class SearchLandingViewController: UIViewController {
             }
         }
     }
+    
 }
 
 extension SearchLandingViewController: SearchLandingViewControllerProtocol {
@@ -73,7 +98,47 @@ extension SearchLandingViewController: SearchLandingViewControllerProtocol {
         self.present(alert, animated: true)
     }
     
+    func alertCountryIsEmpty(){
+        let alert = UIAlertController(title: Constant.alertCountryUnselectedTitle, message: Constant.alertCountryUnselectedTitleMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
+    }
+    
     func setItemToSearch(as item: String) {
         self.itemToSearch = item
     }
+    
+    func enableSearchButton(){
+        self.searchButton.isEnabled = true
+    }
+    
+    func disableSearchButton(){
+        self.searchButton.isEnabled = false
+    }
+      
+}
+
+extension SearchLandingViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return presenter?.getRowsForPicker() ?? 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return presenter?.getTitleForPicker(at: row)
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        presenter?.countryWasSelected(at: row)
+    }
+    
+    func reloadPicker(){
+        countryPicker.reloadAllComponents()
+    }
+    
 }

@@ -1,17 +1,17 @@
 //
-//  ListProductsService.swift
+//  DetailsQAndAService.swift
 //  MercadoLibre
 //
-//  Created by Natalia Goyes on 23/08/22.
+//  Created by Natalia Goyes on 26/08/22.
 //
 
 import Foundation
 
-protocol ListProductsServiceProtocol: AnyObject {
-    func getProductsInformation(item: String, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void)
+protocol DetailsQAndAServiceProtocol: AnyObject {
+    func getQuestionsAndAnswers(itemID: String, onSuccess: @escaping (QAsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void)
 }
 
-class ListProductsService {
+class DetailsQAndAService {
     
     enum Error: Swift.Error {
         case URLRequestError, webClientError
@@ -19,23 +19,21 @@ class ListProductsService {
     
     let urlRequestBuilder: URLRequestBuilderProtocol
     let restClient: WebClientProtocol
-    let fetchCountryID: FetchCountryIDProtocol
     
-    init(urlRequestBuilder: URLRequestBuilderProtocol, restClient: WebClientProtocol, fetchCountryID: FetchCountryIDProtocol) {
+    init(urlRequestBuilder: URLRequestBuilderProtocol, restClient: WebClientProtocol) {
         self.urlRequestBuilder = urlRequestBuilder
         self.restClient = restClient
-        self.fetchCountryID = fetchCountryID
     }
     
     func processResponse(
         responseToDecode: Data,
-        onSuccess: @escaping (ListProductsAPIResponse) -> Void,
+        onSuccess: @escaping (QAsAPIResponse) -> Void,
         onError: @escaping (WebServiceError) -> Void) {
             
             let decoder = JSONDecoder()
             
             do {
-                let decodifiedResponse = try decoder.decode(ListProductsAPIResponse.self, from: responseToDecode)
+                let decodifiedResponse = try decoder.decode(QAsAPIResponse.self, from: responseToDecode)
                 onSuccess(decodifiedResponse)
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
@@ -58,7 +56,7 @@ class ListProductsService {
             }
         }
     
-    func performRequest(request: URLRequest, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
+    func performRequest(request: URLRequest, onSuccess: @escaping (QAsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
         restClient.performRequest(request: request) { [weak self] dataToDecode in
             guard let self = self else {
                 return
@@ -73,13 +71,12 @@ class ListProductsService {
     }
 }
 
-extension ListProductsService: ListProductsServiceProtocol {
+extension DetailsQAndAService: DetailsQAndAServiceProtocol {
     
-    func getProductsInformation(item: String, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
+    func getQuestionsAndAnswers(itemID: String, onSuccess: @escaping (QAsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
         
         do {
-            let location = try fetchCountryID.getCountryID()
-            let endpoint = ItemSearch(location: location, search: item)
+            let endpoint = QuestionsAndAnwersSearch(search: itemID)
             self.urlRequestBuilder.setEndpoint(endpoint: endpoint)
             let request = try urlRequestBuilder.build()
             performRequest(request: request, onSuccess: onSuccess, onError: onError)

@@ -14,7 +14,7 @@ protocol SearchUseCaseProtocol: AnyObject {
 class SearchUseCase: SearchUseCaseProtocol {
     func execute(search item: String?, onSuccess: @escaping (String)-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void)){
         
-        guard let item = item else {
+        guard let item = item, item != "" else {
             onError(SearchLandingPresenter.Error.emptySearch)
             return
         }

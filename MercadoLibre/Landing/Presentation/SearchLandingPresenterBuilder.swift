@@ -13,7 +13,19 @@ class SearchLandingPresenterBuilder {
         
         let searchUseCase = SearchUseCase()
         
-        return SearchLandingPresenter(searchUseCase: searchUseCase)
+        let restClient = RESTClient()
+        
+        let urlRequestBuilder = URLRequestBuilder()
+        
+        let fetchCountryID = FetchCountryID()
+        
+        let saveCountryID = SaveCountryID()
+        
+        let countrySelectionService = CountrySelectionService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
+        
+        let locationPickerUseCase = LocationPickerUseCase(countrySelectionService: countrySelectionService)
+        
+        return SearchLandingPresenter(searchUseCase: searchUseCase, locationPickerUseCase: locationPickerUseCase, fetchCountryID: fetchCountryID, saveCountryID: saveCountryID)
     }
     
 }

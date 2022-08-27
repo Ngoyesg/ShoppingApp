@@ -33,6 +33,16 @@ class BaseEndpoint {
     }
 }
 
+
+class SitesSearch: BaseEndpoint {
+    
+    init(){
+        let path = "/sites"
+        super.init(path: path, queryItems: [], httpMethod: .GET)
+    }
+    
+}
+
 class ItemSearch: BaseEndpoint {
     
     struct Constant {
@@ -42,6 +52,20 @@ class ItemSearch: BaseEndpoint {
     init(location market: String, search item: String){
         let path = "/sites/\(market)/search"
         let queryItems = [URLQueryItem(name: Constant.questIdentifier, value: item)]
+        super.init(path: path, queryItems: queryItems, httpMethod: .GET)
+    }
+    
+}
+
+class QuestionsAndAnwersSearch: BaseEndpoint {
+    
+    struct Constant {
+        static let questIdentifier = "item"
+    }
+    
+    init(search itemID: String){
+        let path = "/questions/search"
+        let queryItems = [URLQueryItem(name: Constant.questIdentifier, value: itemID)]
         super.init(path: path, queryItems: queryItems, httpMethod: .GET)
     }
     

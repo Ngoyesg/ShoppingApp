@@ -40,7 +40,12 @@ extension ListResultsPresenter: ListResultsPresenterProtocol {
         self.viewController?.startSpinner()
     }
     
+
     func sendRequest(for item: String) {
+        guard itemSearchResults.count == 0 else {
+            return
+        }
+        
         searchItemUseCase.execute(search: item) { [weak self] productsData in
             guard let self = self, let controller = self.viewController else {
                 return

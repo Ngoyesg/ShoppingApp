@@ -11,9 +11,15 @@ class DetailedItemPresenterBuilder {
     
     func build() -> DetailedItemPresenterProtocol {
         
-        // 'was machen :)
+        let restClient = RESTClient()
         
-        return DetailedItemPresenter()
+        let urlRequestBuilder = URLRequestBuilder()
+        
+        let detailsQAndAService = DetailsQAndAService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
+        
+        let searchItemDetailUseCase = SearchItemDetailsUseCase(detailsQAndAService: detailsQAndAService)
+        
+        return DetailedItemPresenter(searchItemDetailUseCase: searchItemDetailUseCase)
     }
     
 }

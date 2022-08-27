@@ -41,7 +41,7 @@ class SearchItemUseCase {
     }
     
     func mapProductsResults(from item: ItemResults, and thumbnail: Data) -> ProductsToDisplay {
-        return ProductsToDisplay(id: item.id, title: item.title, prices: item.price, currency: item.currency ?? "NaN", thumbnail: thumbnail, quantityOfInstallments: item.installments.quantity, installments: item.installments.amount ?? 0, availableQuantity: item.availableQuantity, soldQuantity: item.soldQuantity )
+        return ProductsToDisplay(id: item.id, title: item.title, prices: item.price, currency: item.currency!, thumbnail: thumbnail, quantityOfInstallments: item.installments?.quantity, installments: item.installments?.amount, availableQuantity: item.availableQuantity, soldQuantity: item.soldQuantity )
     }
     
     func processResults(from list: ListProductsAPIResponse, onSuccess: @escaping ()-> (Void), onError: @escaping (WebServiceError)-> (Void)) {

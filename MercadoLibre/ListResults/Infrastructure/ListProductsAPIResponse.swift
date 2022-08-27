@@ -19,7 +19,7 @@ struct ItemResults: Codable {
     let thumbnail: String
     let availableQuantity: Int?
     let soldQuantity: Int?
-    let installments: InstallmentInfo
+    let installments: InstallmentInfo?
     
     private enum CodingKeys: String, CodingKey {
         case id, title, price, installments, currency = "currency_id", thumbnail, availableQuantity = "available_quantity", soldQuantity = "sold_quantity"

@@ -25,7 +25,7 @@ class ListResultsViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     struct Constant {
-        static let cellIndentifier = "itemCell"
+        static let cellIdentifier = "itemCell"
         static let alertDownloadingFailedTitle = "Busqueda Fallo"
         static let alertDownloadingFailedTitleMessage = "La busqueda fallo inesperadamente"
         static let alertNoResultsTitle = "Lo sentimos"
@@ -120,7 +120,7 @@ extension ListResultsViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableViewListResults.dequeueReusableCell(withIdentifier: Constant.cellIndentifier, for: indexPath)
+        let cell = tableViewListResults.dequeueReusableCell(withIdentifier: Constant.cellIdentifier, for: indexPath)
         let cellInfo = presenter?.getItem(for: indexPath.row)
         let itemThumbnail = presenter?.getThumbnail(for: indexPath.row)
     
@@ -128,6 +128,8 @@ extension ListResultsViewController: UITableViewDelegate, UITableViewDataSource 
         
         if let price = cellInfo?.prices, let installments = cellInfo?.installments, let quantity = cellInfo?.quantityOfInstallments {
             cell.detailTextLabel?.text = "$\(price) ó $\(installments) por \(quantity) meses"
+        } else if let price = cellInfo?.prices {
+            cell.detailTextLabel?.text = "$\(price)"
         }
         
         if let thumbnailData = itemThumbnail {

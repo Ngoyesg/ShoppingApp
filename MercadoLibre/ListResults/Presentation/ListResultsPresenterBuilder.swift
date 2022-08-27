@@ -12,9 +12,13 @@ class ListResultsPresenterBuilder {
     func build() -> ListResultsPresenterProtocol {
         
         let restClient = RESTClient()
+        
         let urlRequestBuilder = URLRequestBuilder()
         
-        let listProductService = ListProductsService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
+        let fetchCountryID = FetchCountryID()
+        
+        let listProductService = ListProductsService(urlRequestBuilder: urlRequestBuilder, restClient: restClient, fetchCountryID: fetchCountryID)
+        
         let getThumbnailService = GetThumbnailsDataService(restClient: restClient)
         
         let searchItemUseCase = SearchItemUseCase(listProductsService: listProductService, getThumbnailsService: getThumbnailService)
