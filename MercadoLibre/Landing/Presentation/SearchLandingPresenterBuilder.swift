@@ -11,21 +11,23 @@ class SearchLandingPresenterBuilder {
     
     func build() -> SearchLandingPresenterProtocol {
         
-        let searchUseCase = SearchUseCase()
+       let countryIDSelectionManager = CountryIDSelectionManager()
+        
+        let countrySelectionUseCase = CountrySelectionUseCase(countryIDSelectionManager: countryIDSelectionManager)
         
         let restClient = RESTClient()
         
         let urlRequestBuilder = URLRequestBuilder()
         
-        let fetchCountryID = FetchCountryID()
+        let listCountriesService = ListCountriesService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
+
+        let locationPickerUseCase = LocationPickerUseCase(listCountriesService: listCountriesService)
+
+        let itemToSearchManager = ItemToSearchManager()
         
-        let saveCountryID = SaveCountryID()
+        let itemToSearchUseCase = ItemToSearchUseCase(itemToSearchManager: itemToSearchManager)
         
-        let countrySelectionService = CountrySelectionService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
-        
-        let locationPickerUseCase = LocationPickerUseCase(countrySelectionService: countrySelectionService)
-        
-        return SearchLandingPresenter(searchUseCase: searchUseCase, locationPickerUseCase: locationPickerUseCase, fetchCountryID: fetchCountryID, saveCountryID: saveCountryID)
+        return SearchLandingPresenter(itemToSearchUseCase: itemToSearchUseCase, locationPickerUseCase: locationPickerUseCase, countrySelectionUseCase: countrySelectionUseCase)
     }
     
 }

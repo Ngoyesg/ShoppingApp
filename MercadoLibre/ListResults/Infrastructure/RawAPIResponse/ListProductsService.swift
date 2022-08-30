@@ -1,17 +1,19 @@
 //
-//  CountrySelectionService.swift
+//  ListProductsService.swift
 //  MercadoLibre
 //
-//  Created by Natalia Goyes on 26/08/22.
+//  Created by Natalia Goyes on 23/08/22.
 //
 
 import Foundation
 
-protocol CountrySelectionServiceProtocol: AnyObject {
-    func getCountries(onSuccess: @escaping ([SitesAPIResponse]) -> Void, onError: @escaping (WebServiceError) -> Void)
+typealias EndpointInfo = (item: String, marketID: String)
+
+protocol ListProductsServiceProtocol: AnyObject {
+    func getProductsInformation(for itemInMarket: EndpointInfo, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void)
 }
 
-class CountrySelectionService {
+class ListProductsService {
     
     enum Error: Swift.Error {
         case URLRequestError, webClientError
@@ -27,13 +29,13 @@ class CountrySelectionService {
     
     func processResponse(
         responseToDecode: Data,
-        onSuccess: @escaping ([SitesAPIResponse]) -> Void,
+        onSuccess: @escaping (ListProductsAPIResponse) -> Void,
         onError: @escaping (WebServiceError) -> Void) {
             
             let decoder = JSONDecoder()
             
             do {
-                let decodifiedResponse = try decoder.decode([SitesAPIResponse].self, from: responseToDecode)
+                let decodifiedResponse = try decoder.decode(ListProductsAPIResponse.self, from: responseToDecode)
                 onSuccess(decodifiedResponse)
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
@@ -56,7 +58,7 @@ class CountrySelectionService {
             }
         }
     
-    func performRequest(request: URLRequest, onSuccess: @escaping ([SitesAPIResponse]) -> Void, onError: @escaping (WebServiceError) -> Void) {
+    func performRequest(request: URLRequest, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
         restClient.performRequest(request: request) { [weak self] dataToDecode in
             guard let self = self else {
                 return
@@ -71,12 +73,12 @@ class CountrySelectionService {
     }
 }
 
-extension CountrySelectionService: CountrySelectionServiceProtocol {
+extension ListProductsService: ListProductsServiceProtocol {
     
-    func getCountries(onSuccess: @escaping ([SitesAPIResponse]) -> Void, onError: @escaping (WebServiceError) -> Void) {
+    func getProductsInformation(for itemInMarket: EndpointInfo, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void) {
         
         do {
-            let endpoint = SitesSearch()
+            let endpoint = ItemSearch(location: itemInMarket.marketID, search: itemInMarket.item)
             self.urlRequestBuilder.setEndpoint(endpoint: endpoint)
             let request = try urlRequestBuilder.build()
             performRequest(request: request, onSuccess: onSuccess, onError: onError)

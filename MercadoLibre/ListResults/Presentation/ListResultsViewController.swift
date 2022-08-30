@@ -8,14 +8,14 @@
 import UIKit
 
 protocol ListResultsViewControllerProtocol: AnyObject {
-    func setItemToSearch(with item: String)
-    func navigateToDetailedResultScreen(with productInfo: ProductsToDisplay)
+    func alertInitializationFailed()
     func alertDownloadingFailed()
     func alertNoResults()
     func showTable()
     func startSpinner()
     func stopSpinner()
     func reloadTableView()
+    func navigateToDetailedResultScreen(with productInfo: ProductsToDisplay)
 }
 
 class ListResultsViewController: UIViewController {
@@ -31,7 +31,7 @@ class ListResultsViewController: UIViewController {
         static let alertNoResultsTitle = "Lo sentimos"
         static let alertNoResultsTitleMessage = "La busqueda no arroja ningun resultado"
         static let alertInitializationFailedTitle = "Error"
-        static let alertInitializationFailedTitleMessage = "Fallo al cargar vista"
+        static let alertInitializationFailedTitleMessage = "No se encuentran los datos para la busqueda"
         static let okAction = "OK"
         static let segueToDetailedProduct = "toDetailedProduct"
     }
@@ -45,28 +45,12 @@ class ListResultsViewController: UIViewController {
         super.viewDidLoad()
         tableViewListResults.delegate = self
         tableViewListResults.dataSource = self
-        
-        do {
-            self.presenter = try ListResultsPresenterBuilder().build()
-            self.presenter?.setViewController(self)
-        } catch {
-            alertInitializationFailed()
-        }
+        self.presenter = ListResultsPresenterBuilder().build()
+        self.presenter?.setViewController(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.presenter?.sendRequest(for: itemToSearch)
-    }
-    
-    func setItemToSearch(with item: String) {
-        self.itemToSearch = item
-    }
-    
-    func alertInitializationFailed(){
-        let alert = UIAlertController(title: Constant.alertInitializationFailedTitle, message: Constant.alertInitializationFailedTitleMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true)
+        self.presenter?.sendRequest()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -95,6 +79,13 @@ extension ListResultsViewController: ListResultsViewControllerProtocol {
     
     func stopSpinner(){
         spinner.stopAnimating()
+    }
+    
+    func alertInitializationFailed(){
+        let alert = UIAlertController(title: Constant.alertInitializationFailedTitle, message: Constant.alertInitializationFailedTitleMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
         
     func alertDownloadingFailed(){

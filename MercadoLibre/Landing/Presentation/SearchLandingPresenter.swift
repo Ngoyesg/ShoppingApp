@@ -8,66 +8,41 @@
 import Foundation
 
 protocol SearchLandingPresenterProtocol: AnyObject {
-    func processSearchClicked(for item: String?)
     func setViewController(_ viewController: SearchLandingViewControllerProtocol)
+    func requestPickerInformation()
     func getRowsForPicker() -> Int
     func getTitleForPicker(at row: Int) -> String
     func countryWasSelected(at row: Int)
-    func verifyCountrySelection() 
+    func processSearchClicked(for item: String?)
 }
 
 class SearchLandingPresenter {
     
     enum Error: Swift.Error {
-        case emptySearch
+        case emptySearch, emptyCountry
     }
    
     weak var viewController: SearchLandingViewControllerProtocol?
     
-    var searchUseCase: SearchUseCaseProtocol
+    var itemToSearchUseCase: ItemToSearchUseCaseProtocol
     var locationPickerUseCase: LocationPickerUseCaseProtocol
-    var fetchCountryID: FetchCountryIDProtocol
-    var saveCountryID: SaveCountryIDProtocol
+    var countrySelectionUseCase: CountrySelectionUseCaseProtocol
     
     var countriesInformation: [SitesAPIResponse] = []
 
-    init(searchUseCase: SearchUseCaseProtocol, locationPickerUseCase: LocationPickerUseCaseProtocol, fetchCountryID: FetchCountryIDProtocol, saveCountryID: SaveCountryIDProtocol){
-        self.searchUseCase = searchUseCase
+    init(itemToSearchUseCase: ItemToSearchUseCaseProtocol, locationPickerUseCase: LocationPickerUseCaseProtocol, countrySelectionUseCase: CountrySelectionUseCaseProtocol){
+        self.itemToSearchUseCase = itemToSearchUseCase
         self.locationPickerUseCase = locationPickerUseCase
-        self.fetchCountryID = fetchCountryID
-        self.saveCountryID = saveCountryID
+        self.countrySelectionUseCase = countrySelectionUseCase
     }
+    
 }
+
 
 extension SearchLandingPresenter: SearchLandingPresenterProtocol {
    
     func setViewController(_ viewController: SearchLandingViewControllerProtocol){
         self.viewController = viewController
-    }
-    
-    func verifyCountrySelection() {
-        do {
-            let id = try fetchCountryID.getCountryID()
-            self.viewController?.enableSearchButton()
-        } catch _ {
-            self.viewController?.disableSearchButton()
-        }
-        requestPickerInformation()
-    }
-    
-    func processSearchClicked(for item: String?) {
-        self.searchUseCase.execute(search: item) { [weak self] productToSearch in
-            guard let self = self, let viewController = self.viewController else {
-                return
-            }
-            viewController.setItemToSearch(as: productToSearch)
-            viewController.navigateToListResultsScreen()
-        } onError: { [weak self] errorThrown in
-            guard let self = self, let viewController = self.viewController else {
-                return
-            }
-            viewController.alertSearchWasEmpty()
-        }
     }
     
     func requestPickerInformation(){
@@ -81,7 +56,7 @@ extension SearchLandingPresenter: SearchLandingPresenterProtocol {
             guard let self = self, let viewController = self.viewController else {
                 return
             }
-            viewController.alertCountryIsEmpty()
+            viewController.alertInitializationFailed()
         }
     }
     
@@ -95,7 +70,35 @@ extension SearchLandingPresenter: SearchLandingPresenterProtocol {
     
     func countryWasSelected(at row: Int){
         let countryId = countriesInformation[row].id
-        self.saveCountryID.saveCountrySite(with: countryId)
-        self.viewController?.enableSearchButton()
+        self.countrySelectionUseCase.saveCountrySite(with: countryId)
     }
+    
+    func processSearchClicked(for item: String?) {
+        self.countrySelectionUseCase.verifyCountrySelection { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.verifyItemToSearch(for: item)
+        } onError: { [weak self] errorThrown in
+            guard let self = self, let viewController = self.viewController else {
+                return
+            }
+            viewController.alertCountryIsEmpty()
+        }
+    }
+    
+   func verifyItemToSearch(for item: String?){
+       self.itemToSearchUseCase.verifyItemToSearch(for: item) {
+           guard let viewController = self.viewController else {
+               return
+           }
+           viewController.navigateToListResultsScreen()
+       } onError: { [weak self] errorThrown in
+           guard let self = self, let viewController = self.viewController else {
+               return
+           }
+           viewController.alertSearchWasEmpty()
+       }
+    }
+    
 }

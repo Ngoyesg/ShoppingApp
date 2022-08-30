@@ -10,19 +10,25 @@ import Foundation
 class ListResultsPresenterBuilder {
     
     func build() -> ListResultsPresenterProtocol {
+
+        let itemToSearchManager = ItemToSearchManager()
         
-        let restClient = RESTClient()
+        let countryIDSelectionManager = CountryIDSelectionManager()
+        
+        let preconditionVerifierUseCase = PreconditionVerifierUseCase(itemToSearchManager: itemToSearchManager, countryIDSelectionManager: countryIDSelectionManager)
         
         let urlRequestBuilder = URLRequestBuilder()
         
-        let fetchCountryID = FetchCountryID()
+        let restClient = RESTClient()
+ 
+        let listProductsService = ListProductsService(urlRequestBuilder: urlRequestBuilder, restClient: restClient)
         
-        let listProductService = ListProductsService(urlRequestBuilder: urlRequestBuilder, restClient: restClient, fetchCountryID: fetchCountryID)
+        let getThumbnailsService = GetThumbnailsDataService(restClient: restClient)
         
-        let getThumbnailService = GetThumbnailsDataService(restClient: restClient)
+        let getProductsToDisplayService = GetProductsToDisplayService(getThumbnailsService: getThumbnailsService)
         
-        let searchItemUseCase = SearchItemUseCase(listProductsService: listProductService, getThumbnailsService: getThumbnailService)
+        let searchItemUseCase = SearchItemUseCase(listProductsService: listProductsService, getProductsToDisplayService: getProductsToDisplayService)
         
-        return ListResultsPresenter(searchItemUseCase: searchItemUseCase)
+        return ListResultsPresenter(searchItemUseCase: searchItemUseCase, preconditionVerifierUseCase: preconditionVerifierUseCase)
     }
 }

@@ -8,13 +8,11 @@
 import UIKit
 
 protocol SearchLandingViewControllerProtocol: AnyObject {
-    func enableSearchButton()
-    func disableSearchButton()
-    func navigateToListResultsScreen()
-    func alertSearchWasEmpty()
-    func setItemToSearch(as item: String)
-    func alertCountryIsEmpty()
     func reloadPicker()
+    func alertSearchWasEmpty()
+    func alertInitializationFailed()
+    func alertCountryIsEmpty()
+    func navigateToListResultsScreen()
 }
 
 class SearchLandingViewController: UIViewController {
@@ -41,12 +39,10 @@ class SearchLandingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
         countryPicker.dataSource = self
         countryPicker.delegate = self
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         do {
             self.presenter = try SearchLandingPresenterBuilder().build()
             self.presenter?.setViewController(self)
@@ -56,12 +52,22 @@ class SearchLandingViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.presenter?.verifyCountrySelection()
+        self.presenter?.requestPickerInformation()
     }
-    
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @IBAction func onSearchButtonClicked(_ sender: Any) {
+        self.presenter?.processSearchClicked(for: searchTextField.text)
+    }
+}
+
+extension SearchLandingViewController: SearchLandingViewControllerProtocol {
+    
+    func navigateToListResultsScreen() {
+        self.performSegue(withIdentifier: Constant.segueToListResults, sender: self)
     }
     
     func alertInitializationFailed(){
@@ -69,26 +75,6 @@ class SearchLandingViewController: UIViewController {
         let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in fatalError()})
         alert.addAction(okAction)
         self.present(alert, animated: true)
-    }
-    
-    @IBAction func onSearchButtonClicked(_ sender: Any) {
-        self.presenter?.processSearchClicked(for: searchTextField.text)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? ListResultsViewController {
-            if let itemToSearch = itemToSearch {
-                destination.setItemToSearch(with: itemToSearch)
-            }
-        }
-    }
-    
-}
-
-extension SearchLandingViewController: SearchLandingViewControllerProtocol {
-    
-    func navigateToListResultsScreen() {
-        self.performSegue(withIdentifier: Constant.segueToListResults, sender: self)
     }
     
     func alertSearchWasEmpty(){
@@ -103,18 +89,6 @@ extension SearchLandingViewController: SearchLandingViewControllerProtocol {
         let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
         alert.addAction(okAction)
         self.present(alert, animated: true)
-    }
-    
-    func setItemToSearch(as item: String) {
-        self.itemToSearch = item
-    }
-    
-    func enableSearchButton(){
-        self.searchButton.isEnabled = true
-    }
-    
-    func disableSearchButton(){
-        self.searchButton.isEnabled = false
     }
       
 }

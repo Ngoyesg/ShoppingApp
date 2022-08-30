@@ -9,7 +9,7 @@ import Foundation
 
 protocol ListResultsPresenterProtocol: AnyObject {
     func setViewController(_ viewController: ListResultsViewControllerProtocol)
-    func sendRequest(for item: String)
+    func sendRequest()
     func getNumberOfRows()-> Int
     func getItem(for row: Int) -> ProductsToDisplay
     func itemWasSelected(at row: Int)
@@ -19,17 +19,19 @@ protocol ListResultsPresenterProtocol: AnyObject {
 class ListResultsPresenter {
     
     enum Error: Swift.Error {
-        case noResults, errorShowingData
+        case incompleteDataToSearch, noResults, errorShowingData
     }
     
     weak var viewController: ListResultsViewControllerProtocol?
     
     var searchItemUseCase: SearchItemUseCaseProtocol
+    var preconditionVerifierUseCase: PreconditionVerifierUseCaseProtocol
     
     var itemSearchResults: [ProductsToDisplay] = []
     
-    init(searchItemUseCase: SearchItemUseCaseProtocol){
+    init(searchItemUseCase: SearchItemUseCaseProtocol, preconditionVerifierUseCase: PreconditionVerifierUseCaseProtocol){
         self.searchItemUseCase = searchItemUseCase
+        self.preconditionVerifierUseCase = preconditionVerifierUseCase
     }
 }
 
@@ -40,13 +42,26 @@ extension ListResultsPresenter: ListResultsPresenterProtocol {
         self.viewController?.startSpinner()
     }
     
-
-    func sendRequest(for item: String) {
+    func sendRequest() {
+        preconditionVerifierUseCase.getPreconditions { [weak self] preconditions in
+            guard let self = self else {
+                return
+            }
+            self.searchItem(with: preconditions)
+        } onError: { [weak self] errorThrown in
+            guard let self = self, let controller = self.viewController else {
+                return
+            }
+            controller.alertInitializationFailed()
+        }
+    }
+    
+    func searchItem(with endpointInfo: EndpointInfo) {
         guard itemSearchResults.count == 0 else {
             return
         }
         
-        searchItemUseCase.execute(search: item) { [weak self] productsData in
+        searchItemUseCase.executeSearch(with: endpointInfo) { [weak self] productsData in
             guard let self = self, let controller = self.viewController else {
                 return
             }

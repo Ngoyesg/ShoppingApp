@@ -15,17 +15,17 @@ class LocationPickerUseCase{
     
     var countriesData : [SitesAPIResponse] = []
     
-    let countrySelectionService: CountrySelectionServiceProtocol
+    let listCountriesService: ListCountriesServiceProtocol
     
-    init(countrySelectionService: CountrySelectionServiceProtocol) {
-        self.countrySelectionService = countrySelectionService
+    init(listCountriesService: ListCountriesServiceProtocol) {
+        self.listCountriesService = listCountriesService
     }
 }
 
 extension LocationPickerUseCase: LocationPickerUseCaseProtocol {
     func execute(onSuccess: @escaping ([SitesAPIResponse])-> (Void), onError: @escaping (WebServiceError)->(Void)){
         
-        countrySelectionService.getCountries { [weak self] countriesData in
+        listCountriesService.getCountries { [weak self] countriesData in
             guard let self = self else {
                 return
             }
