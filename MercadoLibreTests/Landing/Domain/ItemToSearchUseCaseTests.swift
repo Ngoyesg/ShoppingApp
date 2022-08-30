@@ -34,12 +34,12 @@ class ItemToSearchUseCaseTests: XCTestCase {
         }
     }
     
-//    func test_WHEN_verifyItemToSearchIsCalled_GIVEN_anInvalidItemLikeNil_THEN_itShouldThrowError() {
-//        let anyInvalidValue = ""
-//        sut.verifyItemToSearch(verify: anyInvalidValue) { _ in
-//            XCTFail()
-//        } onError: { errorThrown in
-//            XCTAssertEqual(errorThrown is ItemToSearchManager.Error, ItemToSearchManager.Error.noItemToSearch)
-//        }
-//    }
+    func test_WHEN_verifyItemToSearchIsCalled_GIVEN_anInvalidItemLikeNil_THEN_itShouldThrowError() {
+        let anyInvalidValue = ""
+        sut.verifyItemToSearch(verify: anyInvalidValue) { _ in
+            XCTFail()
+        } onError: { errorThrown in
+            XCTAssertEqual(errorThrown as ItemToSearchManager.Error, ItemToSearchManager.Error.noItemToSearch)
+        }
+    }
 }

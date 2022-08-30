@@ -9,7 +9,7 @@ import Foundation
 
 protocol CountrySelectionUseCaseProtocol: AnyObject {
     func saveCountrySite(with contryID: String)
-    func verifyCountrySelection(onSuccess: @escaping (Bool)-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void))
+    func verifyCountrySelection(onSuccess: @escaping (Bool)-> (Void), onError: @escaping (CountryIDSelectionManager.Error)->(Void))
 }
 
 class CountrySelectionUseCase{
@@ -29,12 +29,12 @@ extension CountrySelectionUseCase: CountrySelectionUseCaseProtocol {
         self.countryIDSelectionManager.saveCountrySite(with: contryID)
     }
     
-    func verifyCountrySelection(onSuccess: @escaping (Bool)-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void)){
+    func verifyCountrySelection(onSuccess: @escaping (Bool)-> (Void), onError: @escaping (CountryIDSelectionManager.Error)->(Void)){
         do {
             let _ = try self.countryIDSelectionManager.getCountryID()
             onSuccess(true)
         } catch {
-            onError(.emptyCountry)
+            onError(.noCountry)
         }
     }
 }

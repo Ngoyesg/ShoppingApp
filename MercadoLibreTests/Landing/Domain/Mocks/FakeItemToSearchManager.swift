@@ -11,13 +11,18 @@ import Foundation
 class FakeItemToSearchManager: ItemToSearchManagerProtocol {
     
     var itemWasSaved = false
+    var successCase = false
     
     func saveItem(with description: String) {
         itemWasSaved = true
     }
     
     func getItem() throws -> String {
-        return ""
+        if successCase {
+            return "anyItem"
+        } else {
+            throw ItemToSearchManager.Error.noItemToSearch
+        }
     }
 
 }

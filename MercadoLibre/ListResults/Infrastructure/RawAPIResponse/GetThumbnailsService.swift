@@ -41,7 +41,6 @@ extension GetThumbnailsDataService: GetThumbnailsDataServiceProtocol {
             }
             onError(errorThrown)
         }
-    
     }
 }
 

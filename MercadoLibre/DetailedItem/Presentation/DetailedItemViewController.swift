@@ -8,14 +8,8 @@
 import UIKit
 
 protocol DetailedItemViewControllerProtocol: AnyObject {
-    func setItemToDisplay(with item: ProductsToDisplay)
-    func setImage(with data: Data?)
-    func setSoldItems(with quantity: Int?)
-    func setAvailableItems(with quantity: Int?)
-    func setItemDescription(with description: String)
-    func setPrice(with price: Double?, currency id: String?)
-    func setInstallment(with amount: Double?, for time: Int?)
-    func alertNoData()
+    func fillViewElements(with productInfo: ProductsToDisplay)
+    func alertResultsAreEmpty()
     func alertDownloadingFailed()
     func showTable()
     func startSpinner()
@@ -45,11 +39,11 @@ class DetailedItemViewController: UIViewController {
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
- 
+    
     struct Constant {
         static let tableTile = "Preguntas y respuestas"
-        static let alertNoResultsTitle = "Sin Datos"
-        static let alertNoResultsTitleMessage = "Por favor intente nuevamente"
+        static let alertNoResultsTitle = "Sin Preguntas"
+        static let alertNoResultsTitleMessage = "El producto aun no tiene preguntas"
         static let alertInitializationFailedTitle = "Error"
         static let alertInitializationFailedTitleMessage = "Fallo al cargar vista"
         static let alertDownloadingFailedTitle = "Busqueda Fallo"
@@ -62,9 +56,8 @@ class DetailedItemViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
-            self.presenter = try DetailedItemPresenterBuilder().build()
+            self.presenter = DetailedItemPresenterBuilder().build()
             self.presenter?.setViewController(self)
-            self.presenter?.setProductData(with: itemToDisplay!)
         } catch {
             alertInitializationFailed()
         }
@@ -73,36 +66,13 @@ class DetailedItemViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.presenter?.requestQAndAs()
-        self.presenter?.loadView()
+        self.presenter?.requestQAndAs(for: itemToDisplay!)
     }
     
     
     func alertInitializationFailed(){
         let alert = UIAlertController(title: Constant.alertInitializationFailedTitle, message: Constant.alertInitializationFailedTitleMessage, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in fatalError()})
-        alert.addAction(okAction)
-        self.present(alert, animated: true)
-    }
-}
-
-extension DetailedItemViewController: DetailedItemViewControllerProtocol {
-    
-    func setItemToDisplay(with item: ProductsToDisplay) {
-        self.itemToDisplay = item
-    }
-    
-    func alertNoData(){
-        let alert = UIAlertController(title: Constant.alertNoResultsTitle, message: Constant.alertNoResultsTitleMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true)
-    }
-    
-    func alertDownloadingFailed(){
-        let alert = UIAlertController(title: Constant.alertDownloadingFailedTitle, message: Constant.alertDownloadingFailedTitleMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in
-            self.dismiss(animated: true) })
         alert.addAction(okAction)
         self.present(alert, animated: true)
     }
@@ -122,21 +92,44 @@ extension DetailedItemViewController: DetailedItemViewControllerProtocol {
     func setAvailableItems(with quantity: Int?) {
         self.availableItemsLabel.text = "Disponibles: \(quantity ?? 0)"
     }
-
+    
     func setItemDescription(with description: String) {
         self.itemDescriptionLabel.text = description
     }
-
+    
     func setPrice(with price: Double?, currency id: String?) {
         self.priceLabel.text = "$\(price ?? 0.0) \(id ?? "")"
     }
-
+    
     func setInstallment(with amount: Double?, for time: Int?) {
         if let amount = amount, let time = time {
             self.installmentsLabel.text = "$\(amount) por \(time) meses"
         } else {
             self.installmentsLabel.text = "No puedes llevar este producto a cuotas"
         }
+    }
+    
+}
+
+extension DetailedItemViewController: DetailedItemViewControllerProtocol {
+    
+    func setItemToDisplay(with item: ProductsToDisplay) {
+        self.itemToDisplay = item
+    }
+    
+    func alertResultsAreEmpty(){
+        let alert = UIAlertController(title: Constant.alertNoResultsTitle, message: Constant.alertNoResultsTitleMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
+    }
+    
+    func alertDownloadingFailed(){
+        let alert = UIAlertController(title: Constant.alertDownloadingFailedTitle, message: Constant.alertDownloadingFailedTitleMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Constant.okAction, style: .default, handler: { _ in
+            self.dismiss(animated: true) })
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
     
     func showTable() {
@@ -149,6 +142,15 @@ extension DetailedItemViewController: DetailedItemViewControllerProtocol {
     
     func stopSpinner() {
         self.spinner.stopAnimating()
+    }
+    
+    func fillViewElements(with productInfo: ProductsToDisplay) {
+        self.setImage(with: productInfo.thumbnail)
+        self.setSoldItems(with: productInfo.soldQuantity)
+        self.setAvailableItems(with: productInfo.availableQuantity)
+        self.setItemDescription(with: productInfo.title)
+        self.setPrice(with: productInfo.prices, currency: productInfo.currency)
+        self.setInstallment(with: productInfo.installments, for: productInfo.quantityOfInstallments)
     }
     
 }
@@ -182,7 +184,7 @@ extension DetailedItemViewController: UITableViewDelegate, UITableViewDataSource
         
         return cell
     }
-   
+    
     func reloadTableView() {
         tableView.reloadData()
     }

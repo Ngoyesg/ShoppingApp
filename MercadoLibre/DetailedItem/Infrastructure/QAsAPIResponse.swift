@@ -8,11 +8,11 @@
 import Foundation
 
 
-struct QAsAPIResponse: Codable {
+struct QAsAPIResponse: Codable, Equatable {
     let questions: [Question]
 }
 
-struct Question: Codable {
+struct Question: Codable, Equatable {
     let question: String?
     let answer: Answer?
     let date: String?
@@ -22,6 +22,6 @@ struct Question: Codable {
     }
 }
 
-struct Answer: Codable {
+struct Answer: Codable, Equatable {
     let text: String?
 }

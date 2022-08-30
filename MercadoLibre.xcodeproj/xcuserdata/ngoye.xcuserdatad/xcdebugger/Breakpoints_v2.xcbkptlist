@@ -3,22 +3,4 @@
    uuid = "D45CA020-6F7F-40FD-9DD9-3B9AECD8D6B3"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3C9647D7-9820-4302-8C37-F0E39095D73F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MercadoLibreTests/Landing/Infrastructure/ListCountriesServiceTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "test_WHEN_getCountriesIsCalled_GIVEN_aSuccessCase_THEN_itShouldReturnSitesAPIResponse()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

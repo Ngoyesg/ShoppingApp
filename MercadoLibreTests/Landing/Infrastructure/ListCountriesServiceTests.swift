@@ -9,11 +9,11 @@ import XCTest
 @testable import MercadoLibre
 
 class ListCountriesServiceTests: XCTestCase {
-
+    
     private var sut: ListCountriesService!
     private var fakeURLRequestBuilder: FakeURLRequestBuilder!
     private var fakeRESTClient: FakeRESTClient!
-
+    
     override func setUp() {
         super.setUp()
         fakeURLRequestBuilder = FakeURLRequestBuilder()
@@ -28,21 +28,51 @@ class ListCountriesServiceTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_WHEN_getCountriesIsCalled_GIVEN_aSuccessCase_THEN_itShouldReturnSitesAPIResponse(){
-       
+    func test_WHEN_getCountriesIsCalled_GIVEN_aSuccessfulURLRequestAndSuccessfulRESTRequest_THEN_itShouldReturnSitesAPIResponse(){
         let expectedResponse = [SitesAPIResponse(name: "Colombia", id: "MCO")]
-        
+        fakeURLRequestBuilder.successCase = true
+        fakeRESTClient.successCase = true
+        fakeRESTClient.caller = "site"
         sut.getCountries { response in
             XCTAssertEqual(response, expectedResponse)
         } onError: { _ in
             XCTFail()
         }
-
-        
+    }
+    
+    func test_WHEN_getCountriesIsCalled_GIVEN_aSuccessfulURLRequestAndfFailedRESTRequest_THEN_itShouldThrowSearchFailedError(){
+        fakeURLRequestBuilder.successCase = true
+        fakeRESTClient.successCase = false
+        sut.getCountries { _ in
+            XCTFail()
+        } onError: { errorThrown in
+            XCTAssertEqual(errorThrown as WebServiceError, WebServiceError.searchFailed)
+        }
     }
     
     
-    // func getCountries(onSuccess: @escaping ([SitesAPIResponse]) -> Void, onError: @escaping (WebServiceError) -> Void)
+    func test_WHEN_getCountriesIsCalled_GIVEN_aFailedURLRequestAndSuccessfulRESTRequest_THEN_itShouldThrowWebServiceError(){
+        let expectedResponse = [SitesAPIResponse(name: "Colombia", id: "MCO")]
+        fakeURLRequestBuilder.successCase = false
+        fakeURLRequestBuilder.noEndpointCase = true
+        fakeRESTClient.caller = "site"
+        sut.getCountries { _ in
+            XCTFail()
+        } onError: { errorThrown in
+            XCTAssertEqual(errorThrown as WebServiceError, WebServiceError.searchFailed)
+        }
+    }
     
-    
+    func test_WHEN_getCountriesIsCalled_GIVEN_aFailedURLAndSuccessfulRESTRequest_THEN_itShouldThrowWebServiceError(){
+        let expectedResponse = [SitesAPIResponse(name: "Colombia", id: "MCO")]
+        fakeURLRequestBuilder.successCase = false
+        fakeURLRequestBuilder.noEndpointCase = false
+        fakeRESTClient.caller = "site"
+        sut.getCountries { _ in
+            XCTFail()
+        } onError: { errorThrown in
+            XCTAssertEqual(errorThrown as WebServiceError, WebServiceError.searchFailed)
+        }
+    }
+
 }

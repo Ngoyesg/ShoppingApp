@@ -13,7 +13,7 @@ class FakeURLRequestBuilder: URLRequestBuilderProtocol {
     var endpoint: BaseEndpoint?
     
     var noEndpointCase = false
-    var noURLCase = false
+    var successCase = false
         
     func setEndpoint(endpoint: BaseEndpoint) {
         self.endpoint = endpoint
@@ -21,14 +21,13 @@ class FakeURLRequestBuilder: URLRequestBuilderProtocol {
     
     func build() throws -> URLRequest {
         
-        if noEndpointCase {
-            throw URLRequestBuilder.Error.noEndpoint
-        } else if noURLCase {
-            throw URLRequestBuilder.Error.noURL
-        } else {
+        if successCase {
             return URLRequest(url: URL(string: "fooString")!)
+        } else if noEndpointCase {
+            throw URLRequestBuilder.Error.noEndpoint
+        } else {
+            throw URLRequestBuilder.Error.noURL
         }
-        
     }
     
 }

@@ -18,13 +18,11 @@ class FakeCountrySelectionUseCase: CountrySelectionUseCaseProtocol {
         countryIdWasSaved = true
     }
     
-    func verifyCountrySelection(onSuccess: @escaping (Bool) -> (Void), onError: @escaping (SearchLandingPresenter.Error) -> (Void)) {
+    func verifyCountrySelection(onSuccess: @escaping (Bool) -> (Void), onError: @escaping (CountryIDSelectionManager.Error) -> (Void)) {
         if successCase {
             onSuccess(true)
         } else {
-            onError(.emptyCountry)
+            onError(.noCountry)
         }
     }
-    
-    
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ProductsToDisplay{
+struct ProductsToDisplay: Equatable {
     let id: String
     let title: String
     let prices: Double

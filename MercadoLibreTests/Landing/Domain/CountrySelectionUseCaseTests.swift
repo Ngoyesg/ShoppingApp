@@ -40,14 +40,14 @@ class CountrySelectionUseCaseTests: XCTestCase {
         }
     }
     
-//    func test_WHEN_verifyCountrySelectionIsCalled_GIVEN_aFailedCase_THEN_itShouldThrowNoCountryError() {
-//        fakeCountryIDSelectionManager.successCase = false
-//
-//        sut.verifyCountrySelection { _ in
-//            XCTFail()
-//        } onError: { errorThrown in
-//            XCTAssertEqual(errorThrown is CountryIDSelectionManager.Error, CountryIDSelectionManager.Error.noCountry)
-//        }
-//    }
+    func test_WHEN_verifyCountrySelectionIsCalled_GIVEN_aFailedCase_THEN_itShouldThrowNoCountryError() {
+        fakeCountryIDSelectionManager.successCase = false
+
+        sut.verifyCountrySelection { _ in
+            XCTFail()
+        } onError: { errorThrown in
+            XCTAssertEqual(errorThrown as CountryIDSelectionManager.Error, CountryIDSelectionManager.Error.noCountry)
+        }
+    }
  
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct ListProductsAPIResponse: Codable {
+struct ListProductsAPIResponse: Codable, Equatable {
     let results: [ItemResults]
 }
 
-struct ItemResults: Codable {
+struct ItemResults: Codable, Equatable {
     let id: String
     let title: String
     let price: Double
@@ -26,7 +26,7 @@ struct ItemResults: Codable {
     }
 }
 
-struct InstallmentInfo: Codable {
+struct InstallmentInfo: Codable, Equatable {
     let amount: Double?
     let quantity: Int?
 }

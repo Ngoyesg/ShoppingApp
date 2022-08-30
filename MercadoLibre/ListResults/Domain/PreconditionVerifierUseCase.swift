@@ -20,7 +20,6 @@ class PreconditionVerifierUseCase {
         self.itemToSearchManager = itemToSearchManager
         self.countryIDSelectionManager = countryIDSelectionManager
     }
-    
 }
 
 extension PreconditionVerifierUseCase: PreconditionVerifierUseCaseProtocol {
@@ -28,12 +27,10 @@ extension PreconditionVerifierUseCase: PreconditionVerifierUseCaseProtocol {
         do {
             let siteID = try self.countryIDSelectionManager.getCountryID()
             let itemToSearch = try self.itemToSearchManager.getItem()
-            let precondition = EndpointInfo(itemToSearch, siteID)            
+            let precondition = EndpointInfo(item: itemToSearch, marketID: siteID)            
             onSuccess(precondition)
         } catch {
             onError(.incompleteDataToSearch)
         }
-       
-        
     }
 }

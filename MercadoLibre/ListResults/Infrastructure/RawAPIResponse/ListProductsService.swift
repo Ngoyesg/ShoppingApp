@@ -7,7 +7,10 @@
 
 import Foundation
 
-typealias EndpointInfo = (item: String, marketID: String)
+struct EndpointInfo: Equatable {
+    let item: String
+    let marketID: String
+}
 
 protocol ListProductsServiceProtocol: AnyObject {
     func getProductsInformation(for itemInMarket: EndpointInfo, onSuccess: @escaping (ListProductsAPIResponse) -> Void, onError: @escaping (WebServiceError) -> Void)

@@ -19,7 +19,7 @@ class FakeCountryIDSelectionManager: CountryIDSelectionManagerProtocol {
     
     func getCountryID() throws -> String {
         if successCase {
-            return ""
+            return "anyCountryID"
         } else {
             throw CountryIDSelectionManager.Error.noCountry
         }

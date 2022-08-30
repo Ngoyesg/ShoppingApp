@@ -9,9 +9,7 @@ import Foundation
 
 protocol DetailedItemPresenterProtocol: AnyObject {
     func setViewController(_ viewController: DetailedItemViewControllerProtocol)
-    func setProductData(with information: ProductsToDisplay)
-    func loadView()
-    func requestQAndAs()
+    func requestQAndAs(for item: ProductsToDisplay)
     func getNumberOfRows()-> Int
     func getQAndAs(for row: Int) -> Question?
 }
@@ -38,21 +36,18 @@ extension DetailedItemPresenter: DetailedItemPresenterProtocol {
         self.viewController = viewController
     }
     
-    func setProductData(with information: ProductsToDisplay) {
-        self.dataToDisplay = information
-    }
-    
-    func requestQAndAs() {
-        guard let itemID = dataToDisplay?.id else {
-            return
-        }
+    func requestQAndAs(for item: ProductsToDisplay) {
         viewController?.startSpinner()
-        searchItemDetailUseCase.execute(search: itemID) { [weak self] apiResponse in
+        searchItemDetailUseCase.execute(search: item.id) { [weak self] apiResponse in
             guard let self = self, let controller = self.viewController else {
                 return
             }
             self.questionsAndAnswers = apiResponse.questions
             controller.stopSpinner()
+            controller.fillViewElements(with: item)
+            if self.questionsAndAnswers.count == 0 {
+                controller.alertResultsAreEmpty()
+            }
             controller.showTable()
             controller.reloadTableView()
         } onError: { [weak self] webServiceError in
@@ -60,25 +55,9 @@ extension DetailedItemPresenter: DetailedItemPresenterProtocol {
                 return
             }
             controller.stopSpinner()
+            controller.fillViewElements(with: item)
             controller.alertDownloadingFailed()
         }
-    }
-    
-    func loadView() {
-        guard let controller = self.viewController else {
-            return
-        }
-        guard let itemData = self.dataToDisplay else {
-            controller.alertNoData()
-            return
-        }
-        controller.setItemDescription(with: itemData.title)
-        controller.setPrice(with: itemData.prices, currency: itemData.currency)
-        controller.setInstallment(with: itemData.installments, for: itemData.quantityOfInstallments)
-        
-        controller.setImage(with: itemData.thumbnail)
-        controller.setAvailableItems(with: itemData.availableQuantity)
-        controller.setSoldItems(with: itemData.soldQuantity)
     }
     
     func getNumberOfRows()-> Int{
