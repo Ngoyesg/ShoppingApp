@@ -43,8 +43,10 @@ class ItemToSearchManagerTests: XCTestCase {
             XCTFail()
         }
     }
-    
+
     func test_WHEN_getItemIsCalled_GIVEN_noItemSaved_THEN_itShouldThrowNoItemToSearchError(){
+        
+        UserDefaults.standard.set(nil, forKey: ItemToSearchManager.Constant.userDefaultItemToSearch)
         do {
             let _ = try sut.getItem()
              XCTFail()

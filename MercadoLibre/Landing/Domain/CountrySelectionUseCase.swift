@@ -35,7 +35,6 @@ extension CountrySelectionUseCase: CountrySelectionUseCaseProtocol {
             onSuccess(true)
         } catch {
             onError(.emptyCountry)
-            return
         }
     }
 }

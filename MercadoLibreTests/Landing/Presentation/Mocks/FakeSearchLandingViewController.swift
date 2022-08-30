@@ -7,15 +7,15 @@
 
 import XCTest
 @testable import MercadoLibre
-/*
+
 class FakeSearchLandingViewController: SearchLandingViewControllerProtocol {
-    
+
     var searchButtonIsEnabled = false
     var segueToNavigateTolistResultsScreenActivated = false
     var alertEmptySearchInitialized = false
     var alertEmptyCountryInitialized = false
+    var alertInitFailedInitialized = false
     var pickerWasReloaded = false
-    var itemToSearchWasSet = false
     
     func enableSearchButton() {
         self.searchButtonIsEnabled = true
@@ -33,8 +33,8 @@ class FakeSearchLandingViewController: SearchLandingViewControllerProtocol {
         self.alertEmptySearchInitialized = true
     }
     
-    func setItemToSearch(as item: String) {
-        self.itemToSearchWasSet = true
+    func alertInitializationFailed() {
+        self.alertInitFailedInitialized = true
     }
     
     func alertCountryIsEmpty() {
@@ -45,4 +45,4 @@ class FakeSearchLandingViewController: SearchLandingViewControllerProtocol {
         self.pickerWasReloaded = true
     }
 }
-*/
+

@@ -35,7 +35,7 @@ class CountryIDSelectionManagerTests: XCTestCase {
     
     func test_WHEN_getCountryIDIsCalled_GIVEN_aValidSavedParameter_THEN_itShouldBeEqualToSavedValue(){
         let siteIDToSave = "anySiteID"
-        UserDefaults.standard.set(siteIDToSave, forKey:CountryIDSelectionManager.Constant.userDefaultCountryID)
+        UserDefaults.standard.set(siteIDToSave, forKey: CountryIDSelectionManager.Constant.userDefaultCountryID)
         do {
             let fetchedItem = try sut.getCountryID()
             XCTAssertEqual(siteIDToSave, fetchedItem)
@@ -45,11 +45,14 @@ class CountryIDSelectionManagerTests: XCTestCase {
     }
     
     func test_WHEN_getCountryIDIsCalled_GIVEN_noIDSaved_THEN_itShouldThrowNoCountryError(){
-         do {
+        
+        UserDefaults.standard.set(nil, forKey: CountryIDSelectionManager.Constant.userDefaultCountryID)
+        do {
             let _ = try sut.getCountryID()
              XCTFail()
         } catch let errorThrown {
             XCTAssertEqual(errorThrown as! CountryIDSelectionManager.Error, CountryIDSelectionManager.Error.noCountry)
         }
     }
+    
 }

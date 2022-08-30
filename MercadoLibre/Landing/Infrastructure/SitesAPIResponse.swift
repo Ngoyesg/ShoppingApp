@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SitesAPIResponse: Codable {
+struct SitesAPIResponse: Codable, Equatable {
     let name: String
     let id: String
 }

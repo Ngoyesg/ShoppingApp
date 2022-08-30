@@ -7,7 +7,6 @@
 
 import Foundation
 @testable import MercadoLibre
-import UIKit
 
 class FakeItemToSearchManager: ItemToSearchManagerProtocol {
     
@@ -18,10 +17,7 @@ class FakeItemToSearchManager: ItemToSearchManagerProtocol {
     }
     
     func getItem() throws -> String {
-        guard let itemSaved = itemSaved else {
-            throw ItemToSearchManager.Error.noItemToSearch
-        }
-        return itemSaved
+        return ""
     }
 
 }

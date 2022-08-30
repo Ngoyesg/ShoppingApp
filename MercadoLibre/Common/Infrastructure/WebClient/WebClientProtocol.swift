@@ -15,15 +15,7 @@ enum HTTPMethod: String {
 }
 
 enum WebServiceError: Error {
-    case unauthorizedRequest,
-         noURLFound,
-         noEndpointFound,
-         invalidRequest,
-         invalidStatusCodeResponse,
-         noDataToDecode,
-         errorDecodingData,
-         errorEncodingData,
-         searchFailed
+    case noURLFound, noEndpointFound,invalidRequest, invalidStatusCodeResponse, noDataToDecode, errorDecodingData, errorEncodingData, searchFailed
 }
 
 protocol WebClientProtocol {

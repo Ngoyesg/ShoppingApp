@@ -73,22 +73,8 @@ extension SearchLandingPresenter: SearchLandingPresenterProtocol {
         self.countrySelectionUseCase.saveCountrySite(with: countryId)
     }
     
-    func processSearchClicked(for item: String?) {
-        self.countrySelectionUseCase.verifyCountrySelection { [weak self] _ in
-            guard let self = self else {
-                return
-            }
-            self.verifyItemToSearch(for: item)
-        } onError: { [weak self] errorThrown in
-            guard let self = self, let viewController = self.viewController else {
-                return
-            }
-            viewController.alertCountryIsEmpty()
-        }
-    }
-    
-   func verifyItemToSearch(for item: String?){
-       self.itemToSearchUseCase.verifyItemToSearch(for: item) {
+   func verifyItemToSearch(verify item: String?){
+       self.itemToSearchUseCase.verifyItemToSearch(verify: item) { _ in
            guard let viewController = self.viewController else {
                return
            }
@@ -99,6 +85,20 @@ extension SearchLandingPresenter: SearchLandingPresenterProtocol {
            }
            viewController.alertSearchWasEmpty()
        }
+    }
+    
+    func processSearchClicked(for item: String?) {
+        self.countrySelectionUseCase.verifyCountrySelection { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.verifyItemToSearch(verify: item)
+        } onError: { [weak self] errorThrown in
+            guard let self = self, let viewController = self.viewController else {
+                return
+            }
+            viewController.alertCountryIsEmpty()
+        }
     }
     
 }

@@ -20,33 +20,26 @@ class ItemToSearchUseCaseTests: XCTestCase {
     }
     
     override func tearDown() {
-        sut = nil
         fakeItemToSearchManager = nil
+        sut = nil
         super.tearDown()
     }
     
     func test_WHEN_verifyItemToSearchIsCalled_GIVEN_aValidItemLikeiPhone_THEN_itemWasSavedShouldBeTrue(){
         let anyValidValue = "iPhone"
-        sut.verifyItemToSearch(for: anyValidValue) {
+        sut.verifyItemToSearch(verify: anyValidValue) { _ in
             XCTAssertTrue(self.fakeItemToSearchManager.itemWasSaved)
         } onError: { _ in
             XCTFail()
         }
     }
     
-//
-//    func verifyItemToSearch(for item: String?, onSuccess: @escaping ()-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void)){
-//
-//        guard let item = item else {
-//            onError(.emptySearch)
-//            return
+//    func test_WHEN_verifyItemToSearchIsCalled_GIVEN_anInvalidItemLikeNil_THEN_itShouldThrowError() {
+//        let anyInvalidValue = ""
+//        sut.verifyItemToSearch(verify: anyInvalidValue) { _ in
+//            XCTFail()
+//        } onError: { errorThrown in
+//            XCTAssertEqual(errorThrown is ItemToSearchManager.Error, ItemToSearchManager.Error.noItemToSearch)
 //        }
-//        guard item != "" else {
-//            onError(.emptySearch)
-//            return
-//        }
-//        itemToSearchManager.saveItem(with: item)
-//        onSuccess()
 //    }
-    
 }

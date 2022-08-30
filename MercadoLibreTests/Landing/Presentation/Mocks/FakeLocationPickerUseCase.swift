@@ -12,7 +12,7 @@ class FakeLocationPickerUseCase: LocationPickerUseCaseProtocol {
     
     var successCase = false
     
-    private let mockResponse = [SitesAPIResponse(name: "AnyCountry", id: "AnyId")]
+    let mockResponse = [SitesAPIResponse(name: "AnyCountry", id: "AnyId")]
     
     func execute(onSuccess: @escaping ([SitesAPIResponse]) -> (Void), onError: @escaping (WebServiceError) -> (Void)) {
         if successCase {

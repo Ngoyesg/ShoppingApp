@@ -64,6 +64,4 @@ class URLRequestBuilderTests: XCTestCase {
             XCTFail()
         }
     }
-    
-
 }

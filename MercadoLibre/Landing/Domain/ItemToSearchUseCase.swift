@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ItemToSearchUseCaseProtocol: AnyObject {
-    func verifyItemToSearch(for item: String?, onSuccess: @escaping ()-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void))
+    func verifyItemToSearch(verify item: String?, onSuccess: @escaping (Bool)-> (Void), onError: @escaping (ItemToSearchManager.Error)->(Void))
 }
 
 class ItemToSearchUseCase {
@@ -22,14 +22,14 @@ class ItemToSearchUseCase {
 
 
 extension ItemToSearchUseCase :ItemToSearchUseCaseProtocol {
-    func verifyItemToSearch(for item: String?, onSuccess: @escaping ()-> (Void), onError: @escaping (SearchLandingPresenter.Error)->(Void)){
+    func verifyItemToSearch(verify item: String?, onSuccess: @escaping (Bool)-> (Void), onError: @escaping (ItemToSearchManager.Error)->(Void)){
         
         guard let item = item, item != "" else {
-            onError(.emptySearch)
+            onError(.noItemToSearch)
             return
         }
         itemToSearchManager.saveItem(with: item)
-        onSuccess()
+        onSuccess(true)
     }
 
 }

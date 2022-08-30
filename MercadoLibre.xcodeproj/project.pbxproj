@@ -10,7 +10,7 @@
 		B91EEEA828BD48AC000A9D87 /* URLRequestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEA728BD48AC000A9D87 /* URLRequestBuilderTests.swift */; };
 		B91EEEAE28BD5750000A9D87 /* FakeSearchLandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEAD28BD5750000A9D87 /* FakeSearchLandingViewController.swift */; };
 		B91EEEB028BD586E000A9D87 /* SearchLandingPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEAF28BD586E000A9D87 /* SearchLandingPresenterTests.swift */; };
-		B91EEEB228BD59FF000A9D87 /* FakeSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEB128BD59FF000A9D87 /* FakeSearchUseCase.swift */; };
+		B91EEEB228BD59FF000A9D87 /* FakeItemToSearchUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEB128BD59FF000A9D87 /* FakeItemToSearchUseCase.swift */; };
 		B91EEEB528BD5BD6000A9D87 /* FakeLocationPickerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEB428BD5BD6000A9D87 /* FakeLocationPickerUseCase.swift */; };
 		B91EEEBB28BD6BBD000A9D87 /* CountrySelectionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEBA28BD6BBD000A9D87 /* CountrySelectionUseCase.swift */; };
 		B91EEEBD28BD7AD1000A9D87 /* ItemToSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEBC28BD7AD1000A9D87 /* ItemToSearchManager.swift */; };
@@ -21,6 +21,15 @@
 		B91EEEC928BD9F6D000A9D87 /* CountryIDSelectionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEEC828BD9F6D000A9D87 /* CountryIDSelectionManagerTests.swift */; };
 		B91EEECB28BDA37A000A9D87 /* ItemToSearchUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEECA28BDA37A000A9D87 /* ItemToSearchUseCaseTests.swift */; };
 		B91EEECD28BDA3E9000A9D87 /* FakeItemToSearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EEECC28BDA3E9000A9D87 /* FakeItemToSearchManager.swift */; };
+		B98457F928BDADA800101246 /* LocationPickerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98457F828BDADA800101246 /* LocationPickerUseCaseTests.swift */; };
+		B98457FC28BDADF800101246 /* FakeListCountriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98457FB28BDADF800101246 /* FakeListCountriesService.swift */; };
+		B98457FE28BDAFF600101246 /* CountrySelectionUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98457FD28BDAFF600101246 /* CountrySelectionUseCaseTests.swift */; };
+		B984580028BDB04700101246 /* FakeCountryIDSelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98457FF28BDB04700101246 /* FakeCountryIDSelectionManager.swift */; };
+		B984580228BDB52600101246 /* FakeCountrySelectionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984580128BDB52600101246 /* FakeCountrySelectionUseCase.swift */; };
+		B984580428BDC47D00101246 /* SearchLandingPresenterBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984580328BDC47D00101246 /* SearchLandingPresenterBuilderTests.swift */; };
+		B984580828BDC5CA00101246 /* ListCountriesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984580728BDC5CA00101246 /* ListCountriesServiceTests.swift */; };
+		B984580B28BDC64800101246 /* FakeURLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984580A28BDC64800101246 /* FakeURLRequestBuilder.swift */; };
+		B984580D28BDC69500101246 /* FakeRESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B984580C28BDC69500101246 /* FakeRESTClient.swift */; };
 		B98A6D9228B5AC3900E698F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */; };
 		B98A6D9428B5AC3900E698F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */; };
 		B98A6D9B28B5AC3B00E698F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */; };
@@ -69,7 +78,7 @@
 		B91EEEA728BD48AC000A9D87 /* URLRequestBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilderTests.swift; sourceTree = "<group>"; };
 		B91EEEAD28BD5750000A9D87 /* FakeSearchLandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchLandingViewController.swift; sourceTree = "<group>"; };
 		B91EEEAF28BD586E000A9D87 /* SearchLandingPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLandingPresenterTests.swift; sourceTree = "<group>"; };
-		B91EEEB128BD59FF000A9D87 /* FakeSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSearchUseCase.swift; sourceTree = "<group>"; };
+		B91EEEB128BD59FF000A9D87 /* FakeItemToSearchUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeItemToSearchUseCase.swift; sourceTree = "<group>"; };
 		B91EEEB428BD5BD6000A9D87 /* FakeLocationPickerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeLocationPickerUseCase.swift; sourceTree = "<group>"; };
 		B91EEEBA28BD6BBD000A9D87 /* CountrySelectionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionUseCase.swift; sourceTree = "<group>"; };
 		B91EEEBC28BD7AD1000A9D87 /* ItemToSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToSearchManager.swift; sourceTree = "<group>"; };
@@ -80,6 +89,15 @@
 		B91EEEC828BD9F6D000A9D87 /* CountryIDSelectionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryIDSelectionManagerTests.swift; sourceTree = "<group>"; };
 		B91EEECA28BDA37A000A9D87 /* ItemToSearchUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToSearchUseCaseTests.swift; sourceTree = "<group>"; };
 		B91EEECC28BDA3E9000A9D87 /* FakeItemToSearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeItemToSearchManager.swift; sourceTree = "<group>"; };
+		B98457F828BDADA800101246 /* LocationPickerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerUseCaseTests.swift; sourceTree = "<group>"; };
+		B98457FB28BDADF800101246 /* FakeListCountriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeListCountriesService.swift; sourceTree = "<group>"; };
+		B98457FD28BDAFF600101246 /* CountrySelectionUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountrySelectionUseCaseTests.swift; sourceTree = "<group>"; };
+		B98457FF28BDB04700101246 /* FakeCountryIDSelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCountryIDSelectionManager.swift; sourceTree = "<group>"; };
+		B984580128BDB52600101246 /* FakeCountrySelectionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeCountrySelectionUseCase.swift; sourceTree = "<group>"; };
+		B984580328BDC47D00101246 /* SearchLandingPresenterBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLandingPresenterBuilderTests.swift; sourceTree = "<group>"; };
+		B984580728BDC5CA00101246 /* ListCountriesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCountriesServiceTests.swift; sourceTree = "<group>"; };
+		B984580A28BDC64800101246 /* FakeURLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLRequestBuilder.swift; sourceTree = "<group>"; };
+		B984580C28BDC69500101246 /* FakeRESTClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRESTClient.swift; sourceTree = "<group>"; };
 		B98A6D8E28B5AC3900E698F0 /* MercadoLibre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MercadoLibre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -211,8 +229,10 @@
 		B91EEE9E28BD439F000A9D87 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B98457FA28BDADAB00101246 /* Mocks */,
 				B91EEECA28BDA37A000A9D87 /* ItemToSearchUseCaseTests.swift */,
-				B91EEECC28BDA3E9000A9D87 /* FakeItemToSearchManager.swift */,
+				B98457F828BDADA800101246 /* LocationPickerUseCaseTests.swift */,
+				B98457FD28BDAFF600101246 /* CountrySelectionUseCaseTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -221,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				B91EEEAF28BD586E000A9D87 /* SearchLandingPresenterTests.swift */,
+				B984580328BDC47D00101246 /* SearchLandingPresenterBuilderTests.swift */,
 				B91EEEB328BD5BB6000A9D87 /* Mocks */,
 			);
 			path = Presentation;
@@ -229,6 +250,8 @@
 		B91EEEA028BD43A9000A9D87 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				B984580728BDC5CA00101246 /* ListCountriesServiceTests.swift */,
+				B984580928BDC63400101246 /* Mocks */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -278,9 +301,10 @@
 		B91EEEB328BD5BB6000A9D87 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				B91EEEB128BD59FF000A9D87 /* FakeSearchUseCase.swift */,
 				B91EEEAD28BD5750000A9D87 /* FakeSearchLandingViewController.swift */,
+				B91EEEB128BD59FF000A9D87 /* FakeItemToSearchUseCase.swift */,
 				B91EEEB428BD5BD6000A9D87 /* FakeLocationPickerUseCase.swift */,
+				B984580128BDB52600101246 /* FakeCountrySelectionUseCase.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -302,6 +326,25 @@
 				B91EEEC228BD87E0000A9D87 /* GetProductsToDisplayService.swift */,
 			);
 			path = ProcessedResults;
+			sourceTree = "<group>";
+		};
+		B98457FA28BDADAB00101246 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B91EEECC28BDA3E9000A9D87 /* FakeItemToSearchManager.swift */,
+				B98457FB28BDADF800101246 /* FakeListCountriesService.swift */,
+				B98457FF28BDB04700101246 /* FakeCountryIDSelectionManager.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		B984580928BDC63400101246 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				B984580A28BDC64800101246 /* FakeURLRequestBuilder.swift */,
+				B984580C28BDC69500101246 /* FakeRESTClient.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		B98A6D8528B5AC3900E698F0 = {
@@ -600,15 +643,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B984580228BDB52600101246 /* FakeCountrySelectionUseCase.swift in Sources */,
+				B984580428BDC47D00101246 /* SearchLandingPresenterBuilderTests.swift in Sources */,
+				B98457F928BDADA800101246 /* LocationPickerUseCaseTests.swift in Sources */,
 				B91EEEB028BD586E000A9D87 /* SearchLandingPresenterTests.swift in Sources */,
+				B98457FC28BDADF800101246 /* FakeListCountriesService.swift in Sources */,
+				B984580D28BDC69500101246 /* FakeRESTClient.swift in Sources */,
+				B98457FE28BDAFF600101246 /* CountrySelectionUseCaseTests.swift in Sources */,
+				B984580828BDC5CA00101246 /* ListCountriesServiceTests.swift in Sources */,
 				B91EEEB528BD5BD6000A9D87 /* FakeLocationPickerUseCase.swift in Sources */,
 				B91EEEA828BD48AC000A9D87 /* URLRequestBuilderTests.swift in Sources */,
+				B984580B28BDC64800101246 /* FakeURLRequestBuilder.swift in Sources */,
 				B91EEEC728BD9B27000A9D87 /* ItemToSearchManagerTests.swift in Sources */,
 				B91EEECD28BDA3E9000A9D87 /* FakeItemToSearchManager.swift in Sources */,
 				B91EEEC928BD9F6D000A9D87 /* CountryIDSelectionManagerTests.swift in Sources */,
 				B91EEECB28BDA37A000A9D87 /* ItemToSearchUseCaseTests.swift in Sources */,
-				B91EEEB228BD59FF000A9D87 /* FakeSearchUseCase.swift in Sources */,
+				B91EEEB228BD59FF000A9D87 /* FakeItemToSearchUseCase.swift in Sources */,
 				B91EEEAE28BD5750000A9D87 /* FakeSearchLandingViewController.swift in Sources */,
+				B984580028BDB04700101246 /* FakeCountryIDSelectionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
