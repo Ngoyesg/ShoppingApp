@@ -33,7 +33,6 @@
 		B98A6D9228B5AC3900E698F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */; };
 		B98A6D9428B5AC3900E698F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */; };
 		B98A6D9B28B5AC3B00E698F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */; };
-		B98A6D9E28B5AC3B00E698F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B98A6D9C28B5AC3B00E698F0 /* LaunchScreen.storyboard */; };
 		B98A6DAF28B5B40400E698F0 /* SearchLandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6DAE28B5B40400E698F0 /* SearchLandingViewController.swift */; };
 		B98A6DB128B5B41200E698F0 /* SearchLandingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6DB028B5B41200E698F0 /* SearchLandingPresenter.swift */; };
 		B98A6DB328B5B42700E698F0 /* SearchLandingPresenterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98A6DB228B5B42700E698F0 /* SearchLandingPresenterBuilder.swift */; };
@@ -52,6 +51,7 @@
 		B98ABCEF28B6938B0076755D /* ProductsToDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98ABCEE28B6938B0076755D /* ProductsToDisplay.swift */; };
 		B98ABCF128B6B5460076755D /* GetThumbnailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98ABCF028B6B5460076755D /* GetThumbnailsService.swift */; };
 		B98ABCF328B6DB650076755D /* DetailedItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98ABCF228B6DB650076755D /* DetailedItemViewController.swift */; };
+		B98CD80928BED00B00FC804A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B98CD80828BED00B00FC804A /* LaunchScreen.storyboard */; };
 		B9ACBB9428BE6410003B8F43 /* SearchItemUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACBB9328BE6410003B8F43 /* SearchItemUseCaseTests.swift */; };
 		B9ACBB9628BE646B003B8F43 /* PreconditionVerifierUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACBB9528BE646B003B8F43 /* PreconditionVerifierUseCaseTests.swift */; };
 		B9ACBB9928BE655B003B8F43 /* FakeListProductsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACBB9828BE655B003B8F43 /* FakeListProductsService.swift */; };
@@ -122,7 +122,6 @@
 		B98A6D9128B5AC3900E698F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B98A6D9D28B5AC3B00E698F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B98A6D9F28B5AC3B00E698F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B98A6DAE28B5B40400E698F0 /* SearchLandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLandingViewController.swift; sourceTree = "<group>"; };
 		B98A6DB028B5B41200E698F0 /* SearchLandingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLandingPresenter.swift; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		B98ABCEE28B6938B0076755D /* ProductsToDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsToDisplay.swift; sourceTree = "<group>"; };
 		B98ABCF028B6B5460076755D /* GetThumbnailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetThumbnailsService.swift; sourceTree = "<group>"; };
 		B98ABCF228B6DB650076755D /* DetailedItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedItemViewController.swift; sourceTree = "<group>"; };
+		B98CD80828BED00B00FC804A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9ACBB9328BE6410003B8F43 /* SearchItemUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemUseCaseTests.swift; sourceTree = "<group>"; };
 		B9ACBB9528BE646B003B8F43 /* PreconditionVerifierUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreconditionVerifierUseCaseTests.swift; sourceTree = "<group>"; };
 		B9ACBB9828BE655B003B8F43 /* FakeListProductsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeListProductsService.swift; sourceTree = "<group>"; };
@@ -430,8 +430,8 @@
 				B98A6D9328B5AC3900E698F0 /* SceneDelegate.swift */,
 				B98A6D9A28B5AC3B00E698F0 /* Assets.xcassets */,
 				B98A6DC628B5BFB300E698F0 /* Main.storyboard */,
-				B98A6D9C28B5AC3B00E698F0 /* LaunchScreen.storyboard */,
 				B98A6D9F28B5AC3B00E698F0 /* Info.plist */,
+				B98CD80828BED00B00FC804A /* LaunchScreen.storyboard */,
 			);
 			path = MercadoLibre;
 			sourceTree = "<group>";
@@ -738,7 +738,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B98A6D9E28B5AC3B00E698F0 /* LaunchScreen.storyboard in Resources */,
+				B98CD80928BED00B00FC804A /* LaunchScreen.storyboard in Resources */,
 				B98A6DC728B5BFB300E698F0 /* Main.storyboard in Resources */,
 				B98A6D9B28B5AC3B00E698F0 /* Assets.xcassets in Resources */,
 			);
@@ -842,17 +842,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		B98A6D9C28B5AC3B00E698F0 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B98A6D9D28B5AC3B00E698F0 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		B91EEE9328BD1D74000A9D87 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -861,7 +850,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z24Z5QFBHM;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nataDev.MercadoLibreTests;
@@ -880,7 +869,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z24Z5QFBHM;
-				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nataDev.MercadoLibreTests;
@@ -1017,7 +1006,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MercadoLibre/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1027,7 +1015,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nataDev.MercadoLibre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nataDev.MercadoLibre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1046,7 +1034,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MercadoLibre/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1056,7 +1043,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nataDev.MercadoLibre;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nataDev.MercadoLibre;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
